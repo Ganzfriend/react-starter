@@ -21,8 +21,10 @@ class App extends React.Component {
   }
 
   searchPage (){
-
-
+    // update state search value
+    // on click of button, make changes to movielist
+    this.setState({value: ''});
+    console.log('typed!');
   }
 
 
@@ -31,7 +33,10 @@ class App extends React.Component {
     return(
       <div>
         <div>
-          <MovieList movies={this.state.movies} addMovie={this.addMovie}/>
+          <MovieList
+            movies={this.state.movies}
+            addMovie={this.addMovie}
+            searchPage={this.searchPage}/>
         </div>
 
 

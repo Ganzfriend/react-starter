@@ -2,13 +2,13 @@ import React from 'react';
 import MakeMovieList from './MakeMovieList.js';
 import Search from './Search.js';
 
-var MovieList = ({movies, addMovie}) => {
+var MovieList = ({movies, addMovie, searchPage}) => {
   return (
     <div className="container">
       <div className="title-bar">
         <h2>MovieList</h2>
       </div>
-      <Search />
+      <Search searchPage={searchPage}/>
       <div className="list-of-titles">
         <MakeMovieList movies={movies}/>
       </div>

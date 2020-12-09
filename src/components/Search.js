@@ -1,25 +1,15 @@
 import React from 'react';
 import App from './App.js';
+import MovieList from './MovieList.js';
 
 
-class Search extends App {
-  constructor(props) {
+class Search extends React.Component {
+  constructor (props) {
     super(props);
-
     this.state = {
       value: 'Search...'
     };
-
-    this.updateValue = this.updateValue.bind(this);
-
   };
-
-  updateValue (e) {
-    this.setState({
-      value: e.target.value
-    });
-  }
-
 
   render () {
     return (
@@ -28,17 +18,25 @@ class Search extends App {
           type="text"
           className="search-bar"
           value={this.state.value}
-          onChange={() => this.updateValue()}>
+          onChange={() => this.props.searchPage()}>
         </input>
-        <button>
-
+        <button
+          onClick={() => console.log('button clicked!')}>
+          Go!
         </button>
       </div>
     );
   }
+
 }
 
 
 
 
 export default Search;
+
+ // updateValue (e) {
+  //   this.setState({
+  //     value: e.target.value
+  //   });
+  // }
