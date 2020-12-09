@@ -1,5 +1,6 @@
 import React from 'react';
 import MakeMovieList from './MakeMovieList.js';
+import Search from './Search.js';
 
 var MovieList = ({movies, addMovie}) => {
   return (
@@ -7,6 +8,7 @@ var MovieList = ({movies, addMovie}) => {
       <div className="title-bar">
         <h2>MovieList</h2>
       </div>
+      <Search />
       <div className="list-of-titles">
         <MakeMovieList movies={movies}/>
       </div>

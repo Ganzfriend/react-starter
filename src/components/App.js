@@ -12,13 +12,17 @@ class App extends React.Component {
     };
 
     this.addMovie = this.addMovie.bind(this);
+    this.searchPage = this.searchPage.bind(this);
   };
 
   addMovie (movie){
-    this.setState(
-      {movies: [...this.movies, movie]},
-      () => console.log('Movie has been added to list')
-      )
+    this.setState({movies: [...this.movies, movie]}, () =>
+    console.log('Movie has been added to list'))
+  }
+
+  searchPage (){
+
+
   }
 
 
