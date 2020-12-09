@@ -1,3 +1,4 @@
+import React from 'react';
 import MakeMovieList from './MakeMovieList.js';
 
 var MovieList = ({movies, addMovie}) => {

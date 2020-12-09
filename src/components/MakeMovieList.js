@@ -1,6 +1,7 @@
+import React from 'react';
 import MovieList from './MovieList.js';
 
-var MakeMovieList = {movies} => {
+var MakeMovieList = ({movies}) => {
   // here, we want to map over passed in movies array (coming from App's state)
   // and we'll return each one in its own div
   // eventually, we'll be dealing with more information, not just the title
