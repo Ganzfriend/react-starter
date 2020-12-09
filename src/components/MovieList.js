@@ -4,8 +4,10 @@ import MakeMovieList from './MakeMovieList.js';
 var MovieList = ({movies, addMovie}) => {
   return (
     <div className="container">
-      <h2>Movie List</h2>
-      <div>
+      <div className="title-bar">
+        <h2>MovieList</h2>
+      </div>
+      <div className="list-of-titles">
         <MakeMovieList movies={movies}/>
       </div>
     </div>
