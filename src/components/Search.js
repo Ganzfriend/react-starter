@@ -6,20 +6,18 @@ import MovieList from './MovieList.js';
 class Search extends React.Component {
   constructor (props) {
     super(props);
-    this.state = {
-      value: 'Search...'
-    };
+
   };
+
 
   render () {
     return (
-      <div>
+      <div className="search-form">
         <input
           type="text"
           className="search-bar"
-          value={this.state.value}
-          onChange={() => this.props.searchPage()}>
-        </input>
+          value={this.props.value}
+          onChange={(e) => this.props.searchPage(e)}/>
         <button
           onClick={() => console.log('button clicked!')}>
           Go!

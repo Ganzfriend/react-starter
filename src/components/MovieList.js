@@ -8,7 +8,6 @@ var MovieList = ({movies, addMovie, searchPage}) => {
       <div className="title-bar">
         <h2>MovieList</h2>
       </div>
-      <Search searchPage={searchPage}/>
       <div className="list-of-titles">
         <MakeMovieList movies={movies}/>
       </div>

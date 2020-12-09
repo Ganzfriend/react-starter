@@ -29,6 +29,12 @@ body {
   background-color: lightgray;
 }
 
+.search-form {
+  position: absolute;
+  top: 60%;
+  left: 10%;
+}
+
 .list-of-titles {
   /* position: flex; */
   /* justify-content: center; */
