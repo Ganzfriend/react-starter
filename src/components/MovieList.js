@@ -2,7 +2,7 @@ import React from 'react';
 import MakeMovieList from './MakeMovieList.js';
 import Search from './Search.js';
 
-var MovieList = ({movies, addMovie, onValueChange, checked}) => {
+var MovieList = ({movies, addMovie, onValueChange, watched}) => {
   return (
     <div className="container">
       <div className="title-bar">
@@ -12,7 +12,7 @@ var MovieList = ({movies, addMovie, onValueChange, checked}) => {
         <MakeMovieList
           movies={movies}
           onValueChange={onValueChange}
-          checked={checked}
+          watched={watched}
         />
       </div>
     </div>

@@ -1,7 +1,14 @@
 import React from 'react';
 import MovieList from './MovieList.js';
 
-var MakeMovieList = ({movies, onValueChange, checked}) => {
+var MakeMovieList = ({movies, onValueChange, watched}) => {
+  if (movies === 'No movie by that name found. Sorry!') {
+    return (
+      <div className="sorry-msg">
+        No movie by that name found. Sorry!
+      </div>
+    );
+  }
   // here, we want to map over passed in movies array (coming from App's state)
   // and we'll return each one in its own div
   // eventually, we'll be dealing with more information, not just the title
@@ -16,9 +23,9 @@ var MakeMovieList = ({movies, onValueChange, checked}) => {
             <input
               type="checkbox"
               id={i}
-              value="Watched"
-              checked={checked}
-              onChange={(e, i) => onValueChange(e, i)}
+              value={movie.title}
+              // watched={watched}
+              onChange={(e) => onValueChange(e)}
             />
             Watched
           </label>

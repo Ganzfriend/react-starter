@@ -14,7 +14,7 @@ class App extends React.Component {
       value: 'Search...',
       addMovieValue: 'Add movie title here',
       addedMovies: [],
-      checked: null
+      watched: []
     };
 
 
@@ -40,7 +40,6 @@ class App extends React.Component {
   clearDefaultSearchVal (e) {
     this.setState({value: ''});
   }
-
 
 
   handleNewMovie (e) {
@@ -85,22 +84,43 @@ class App extends React.Component {
     }
     // if no movie is found in search, apology message appears
     if (searchedMovies.length > 0) {
-      this.setState({movies: searchedMovies});
-    } else {
-      this.setState({movies: [{title: 'No movie by that name found. Sorry!'}]});
-    }
-    this.setState({value: 'Search...'});
-  }
-
-
-  onValueChange (e, i) {
-    if (this.state.checked) {
-      this.setState({checked: false})
+      this.setState({
+        movies: searchedMovies,
+        value: 'Search...'
+      });
     } else {
       this.setState({
-        checked: e.target.value
+        movies: 'No movie by that name found. Sorry!',
+        value: 'Search...'
       });
     }
+  }
+
+  // if title of item is in watched array, remove it
+  // otherwise, add it
+
+  ///////////////////////////////////////
+  //// this isn't adding to the watched array quite right
+  onValueChange (e) {
+    var v = e.target.value;
+    if (this.state.watched.indexOf(v) < 0) {
+      this.setState({watched: [...this.state.watched, v]});
+    } else if (this.state.watched.length > 0) {
+      var newWatched = this.state.watched.slice();
+      var i = newWatched.indexOf(v);
+      newWatched.splice(i, 1);
+      this.setState({
+        watched: newWatched}, () =>
+        console.log(this.newWatched)
+      );
+    }
+    // if (this.state.watched) {
+    //   this.setState({watched: false})
+    // } else {
+    //   this.setState({
+    //     watched: e.target.value
+    //   });
+    // }
   }
 
 
@@ -114,7 +134,7 @@ class App extends React.Component {
           <MovieList
             movies={this.state.movies}
             onValueChange={this.onValueChange}
-            checked={this.state.checked}
+            watched={this.state.watched}
           />
           <div className="input-movies-form">
             <InputMovies
