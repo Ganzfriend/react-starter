@@ -98,29 +98,17 @@ class App extends React.Component {
 
   // if title of item is in watched array, remove it
   // otherwise, add it
-
-  ///////////////////////////////////////
-  //// this isn't adding to the watched array quite right
   onValueChange (e) {
     var v = e.target.value;
-    if (this.state.watched.indexOf(v) < 0) {
+    var i = this.state.watched.indexOf(v);
+
+    if (i < 0) {
       this.setState({watched: [...this.state.watched, v]});
-    } else if (this.state.watched.length > 0) {
-      var newWatched = this.state.watched.slice();
-      var i = newWatched.indexOf(v);
+    } else {
+      var newWatched = [...this.state.watched];
       newWatched.splice(i, 1);
-      this.setState({
-        watched: newWatched}, () =>
-        console.log(this.newWatched)
-      );
+      this.setState({watched: newWatched});
     }
-    // if (this.state.watched) {
-    //   this.setState({watched: false})
-    // } else {
-    //   this.setState({
-    //     watched: e.target.value
-    //   });
-    // }
   }
 
 
