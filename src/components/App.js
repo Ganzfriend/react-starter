@@ -13,6 +13,10 @@ class App extends React.Component {
       value: 'Search...'
     };
 
+    this.baseState = {
+      movies: props.exampleMovies
+    }
+
     this.addMovie = this.addMovie.bind(this);
     this.searchPage = this.searchPage.bind(this);
     this.findMovies = this.findMovies.bind(this);
@@ -29,6 +33,9 @@ class App extends React.Component {
     // update state search value
     // on click of button, make changes to movielist
     this.setState({value: e.target.value});
+    if (!this.value) {
+      this.setState({movies: this.baseState.movies});
+    }
     console.log('typed!');
   }
 
@@ -47,6 +54,9 @@ class App extends React.Component {
     }
     this.setState({movies: searchedMovies});
   }
+
+  // need to revert to base state whenever search form is cleared
+
 
 
 
