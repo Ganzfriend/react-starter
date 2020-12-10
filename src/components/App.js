@@ -32,12 +32,10 @@ class App extends React.Component {
 
 
   clearDefaultMovieVal (e) {
-    console.log('clicked!');
     this.setState({addMovieValue: ''});
   }
 
   clearDefaultSearchVal (e) {
-    console.log('clicked!');
     this.setState({value: ''});
   }
 
@@ -48,15 +46,19 @@ class App extends React.Component {
   }
 
   addMovie (movie) {
-    if (this.state.addMovieValue === 'Add movie title here') {
+    if (this.state.addMovieValue === 'Add movie title here' || this.state.addMovieValue === '') {
       this.setState({movies: this.state.addedMovies});
     } else {
       var newMovie = {title: this.state.addMovieValue};
-      this.setState({addedMovies: [newMovie, ...this.state.addedMovies]})
-      console.log(this.state.addedMovies);
+      this.setState({
+        addedMovies: [newMovie, ...this.state.addedMovies],
+        movies: [newMovie, ...this.state.addedMovies],
+        addMovieValue: 'Add movie title here'
+      })
+      // console.log(this.state.addedMovies);
 
-      this.setState({movies: this.state.addedMovies});
-      this.setState({addMovieValue: 'Add movie title here'});
+      // this.setState({movies: this.state.addedMovies}, () => console.log('add movie ', this.state.movies));
+      // this.setState({addMovieValue: 'Add movie title here'});
     }
   }
 
