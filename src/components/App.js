@@ -56,7 +56,9 @@ class App extends React.Component {
     if (searchedMovies.length > 0) {
       this.setState({movies: searchedMovies});
     } else {
-      alert('No movie by that name found');
+      this.setState({movies: [{title: 'No movie by that name found. Sorry!'}]});
+
+      // alert('No movie by that name found');
     }
   }
 
