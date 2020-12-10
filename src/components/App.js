@@ -52,7 +52,12 @@ class App extends React.Component {
         searchedMovies.push(movies[i]);
       }
     }
-    this.setState({movies: searchedMovies});
+
+    if (searchedMovies.length > 0) {
+      this.setState({movies: searchedMovies});
+    } else {
+      alert('No movie by that name found');
+    }
   }
 
   // need to revert to base state whenever search form is cleared

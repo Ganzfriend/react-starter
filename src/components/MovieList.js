@@ -2,7 +2,7 @@ import React from 'react';
 import MakeMovieList from './MakeMovieList.js';
 import Search from './Search.js';
 
-var MovieList = ({movies, addMovie, searchPage}) => {
+var MovieList = ({movies, addMovie}) => {
   return (
     <div className="container">
       <div className="title-bar">
