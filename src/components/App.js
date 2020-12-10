@@ -10,18 +10,21 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      movies: props.exampleMovies,
+      // movies: props.exampleMovies,
+      movies: [],
       value: 'Search...',
       addMovieValue: 'Add movie title here',
       toWatch: [],
       watched: [],
       watchedBtn: true,
       toWatchBtn: false,
+
     };
 
 
     this.baseState = {
-      movies: props.exampleMovies,
+      // movies: props.exampleMovies,
+      movies: [],
       toWatch: []
     }
 
@@ -56,7 +59,7 @@ class App extends React.Component {
   addMovie (movie) {
     var val = this.state.addMovieValue;
     if (val === 'Add movie title here' || val === '') {
-      this.setState({movies: this.state.toWatch});
+      this.setState({movies: [...this.state.toWatch]});
     } else {
       var newMovie = {title: val};
       this.setState({
@@ -126,7 +129,7 @@ class App extends React.Component {
     for (let i = 0; i < watched.length; i++) {
       let obj = watched[i];
 
-      if (v in obj) {
+      if (obj.title === v) {
         var newWatched = [...this.state.watched];
         newWatched.splice(i, 1);
         this.setState({
@@ -136,14 +139,15 @@ class App extends React.Component {
         return;
       }
     }
-    // otherwise, title was not found in watched
+    // otherwise, we know title was not found in watched
     // so, we'll remove it from toWatch and add to watched
-    for (let j = 0; j < this.state.toWatch; j++) {
-      let obj = this.state.toWatch[j];
-      if (v in obj) {
+    var toWatch =  [...this.state.toWatch];
+
+    for (let j = 0; j < toWatch.length; j++) {
+      let obj = toWatch[j];
+      if (obj.title === v) {
         var newToWatch = [...this.state.toWatch];
         newToWatch.splice(j, 1);
-
         this.setState({
           watched: [...this.state.watched, {title: v}],
           toWatch: newToWatch

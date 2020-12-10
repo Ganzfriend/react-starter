@@ -3,7 +3,7 @@ import MakeMovieList from './MakeMovieList.js';
 import Search from './Search.js';
 import WatchedBtns from './WatchedBtns.js';
 
-var MovieList = ({movies, addMovie, onValueChange, watched, watchedBtn, toWatchBtn, switchToWatched, switchToUnwatched}) => {
+const MovieList = ({movies, addMovie, onValueChange, watched, watchedBtn, toWatchBtn, switchToWatched, switchToUnwatched}) => {
   return (
     <div className="container">
       <div className="title-bar">

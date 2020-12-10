@@ -1,7 +1,7 @@
 import React from 'react';
 import MovieList from './MovieList.js';
 
-var MakeMovieList = ({movies, onValueChange, watched}) => {
+const MakeMovieList = ({movies, onValueChange, watched}) => {
   if (movies === 'No movie by that name found. Sorry!') {
     return (
       <div className="sorry-msg">
