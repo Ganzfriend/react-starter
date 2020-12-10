@@ -13,7 +13,8 @@ class App extends React.Component {
       movies: props.exampleMovies,
       value: 'Search...',
       addMovieValue: 'Add movie title here',
-      addedMovies: []
+      addedMovies: [],
+      checked: null
     };
 
 
@@ -28,6 +29,7 @@ class App extends React.Component {
     this.addMovie = this.addMovie.bind(this);
     this.clearDefaultMovieVal = this.clearDefaultMovieVal.bind(this);
     this.clearDefaultSearchVal = this.clearDefaultSearchVal.bind(this);
+    this.onValueChange = this.onValueChange.bind(this);
   };
 
 
@@ -55,15 +57,8 @@ class App extends React.Component {
         movies: [newMovie, ...this.state.addedMovies],
         addMovieValue: 'Add movie title here'
       })
-      // console.log(this.state.addedMovies);
-
-      // this.setState({movies: this.state.addedMovies}, () => console.log('add movie ', this.state.movies));
-      // this.setState({addMovieValue: 'Add movie title here'});
     }
   }
-
-
-
 
   // searchPage grabs input value from search bar
   // updates value state according to search input
@@ -98,14 +93,28 @@ class App extends React.Component {
   }
 
 
+  onValueChange (e, i) {
+    if (this.state.checked) {
+      this.setState({checked: false})
+    } else {
+      this.setState({
+        checked: e.target.value
+      });
+    }
+  }
+
+
+
+
+
   render (){
     return(
       <div>
         <div>
           <MovieList
             movies={this.state.movies}
-            addMovie={this.addMovie}
-            addMovieValue={this.addMovieValue}
+            onValueChange={this.onValueChange}
+            checked={this.state.checked}
           />
           <div className="input-movies-form">
             <InputMovies
