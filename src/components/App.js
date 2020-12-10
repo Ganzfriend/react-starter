@@ -12,7 +12,9 @@ class App extends React.Component {
     this.state = {
       movies: props.exampleMovies,
       value: 'Search...'
+      addedMovies: [];
     };
+
 
     this.baseState = {
       movies: props.exampleMovies
