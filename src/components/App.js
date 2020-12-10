@@ -13,7 +13,7 @@ class App extends React.Component {
       movies: props.exampleMovies,
       value: 'Search...',
       addMovieValue: 'Add movie title here',
-      addedMovies: [],
+      toWatch: [],
       watched: [],
       watchedBtn: true,
       toWatchBtn: false,
@@ -22,7 +22,7 @@ class App extends React.Component {
 
     this.baseState = {
       movies: props.exampleMovies,
-      addedMovies: []
+      toWatch: []
     }
 
     this.searchPage = this.searchPage.bind(this);
@@ -56,17 +56,18 @@ class App extends React.Component {
   addMovie (movie) {
     var val = this.state.addMovieValue;
     if (val === 'Add movie title here' || val === '') {
-      this.setState({movies: this.state.addedMovies});
+      this.setState({movies: this.state.toWatch});
     } else {
       var newMovie = {title: val};
       this.setState({
-        addedMovies: [newMovie, ...this.state.addedMovies],
-        movies: [newMovie, ...this.state.addedMovies],
+        toWatch: [newMovie, ...this.state.toWatch],
+        movies: [newMovie, ...this.state.toWatch],
         addMovieValue: 'Add movie title here'
       })
     }
   }
 ///////////////////////////////////////////////////////////
+
 
 /////////////// search bar functions ///////////////////////
 
@@ -76,9 +77,9 @@ class App extends React.Component {
   searchPage (e){
     this.setState({value: e.target.value});
     if (!this.value) {
-      var moviesAdded = this.state.addedMovies.length > 0;
+      var moviesAdded = this.state.toWatch.length > 0;
       if (moviesAdded) {
-        this.setState({movies: [...this.state.addedMovies]});
+        this.setState({movies: [...this.state.toWatch]});
       } else {
         this.setState({movies: this.baseState.movies});
       }
@@ -117,27 +118,38 @@ class App extends React.Component {
 ////////////// toggle watched property on each movie /////
 
   // if title of item is in watched array, remove it
-  // otherwise, add it, and remove it from addedMovies
+  // otherwise, add it, and remove it from toWatch
   onValueChange (e) {
     var v = e.target.value;
-    var i = this.state.watched.indexOf(v);
+    var watched = this.state.watched;
 
-    if (i < 0) {
-      var newAddedMovies = [...this.state.addedMovies];
-      newAddedMovies.splice(i, 1);
+    for (let i = 0; i < watched.length; i++) {
+      let obj = watched[i];
 
-      this.setState({
-        watched: [...this.state.watched, v],
-        addedMovies: newAddedMovies
-      });
-    } else {
-      var newWatched = [...this.state.watched];
-      newWatched.splice(i, 1);
+      if (v in obj) {
+        var newWatched = [...this.state.watched];
+        newWatched.splice(i, 1);
+        this.setState({
+          watched: newWatched,
+          toWatch: [...this.state.toWatch, {title: v}]
+        });
+        return;
+      }
+    }
+    // otherwise, title was not found in watched
+    // so, we'll remove it from toWatch and add to watched
+    for (let j = 0; j < this.state.toWatch; j++) {
+      let obj = this.state.toWatch[j];
+      if (v in obj) {
+        var newToWatch = [...this.state.toWatch];
+        newToWatch.splice(j, 1);
 
-      this.setState({
-        watched: newWatched,
-        addedMovies: [...this.state.addedMovies, v]
-      });
+        this.setState({
+          watched: [...this.state.watched, {title: v}],
+          toWatch: newToWatch
+        });
+        return;
+      }
     }
   }
 ///////////////////////////////////////////////////////////
@@ -145,7 +157,7 @@ class App extends React.Component {
 
 ////////// toggle between Watch and To Watch buttons /////
   // this is still buggy
-  // watched and not-watched (addedMovies) arrays aren't
+  // watched and not-watched (toWatch) arrays aren't
   // updating and/or rendering properly
   switchToWatched (e) {
     this.setState({
@@ -157,7 +169,7 @@ class App extends React.Component {
 
   switchToUnwatched (e) {
     this.setState({
-      movies: [...this.state.addedMovies, ...this.baseState.movies],
+      movies: [...this.state.toWatch, ...this.baseState.movies],
       watchedBtn: false,
       toWatchBtn: true
     });
