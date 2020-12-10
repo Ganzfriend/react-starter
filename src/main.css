@@ -13,7 +13,7 @@ body {
   /* display: flex; */
   position: relative;
   width: 500px;
-  height: 600px;
+  min-height: 600px;
   border: 2px solid lightgray;
 }
 
@@ -27,6 +27,13 @@ body {
   margin: 0;
   padding: 1px 0;
   background-color: lightgray;
+}
+
+.tab {
+  padding: 10px;
+  background-color: white;
+  border: 2px solid lightgray;
+  font-style: oblique;
 }
 
 .input-movies-form {
@@ -64,9 +71,11 @@ body {
   /* position: flex; */
   /* justify-content: center; */
   position: absolute;
+  overflow-y: scroll;
   top: 50%;
   left: 10%;
   width: 400px;
+  height: 300px;
 }
 
 .movie-box {

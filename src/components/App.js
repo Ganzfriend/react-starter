@@ -10,8 +10,8 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      // movies: props.exampleMovies,
-      movies: [],
+      movies: props.exampleMovies,
+      // movies: [],
       value: 'Search...',
       addMovieValue: 'Add movie title here',
       toWatch: [],
@@ -23,8 +23,8 @@ class App extends React.Component {
 
 
     this.baseState = {
-      // movies: props.exampleMovies,
-      movies: [],
+      movies: props.exampleMovies,
+      // movies: [],
       toWatch: []
     }
 
@@ -37,6 +37,7 @@ class App extends React.Component {
     this.onValueChange = this.onValueChange.bind(this);
     this.switchToWatched = this.switchToWatched.bind(this);
     this.switchToUnwatched = this.switchToUnwatched.bind(this);
+    this.switchToAll = this.switchToAll.bind(this);
   };
 
 /////////////// clear input forms //////////
@@ -173,11 +174,23 @@ class App extends React.Component {
 
   switchToUnwatched (e) {
     this.setState({
-      movies: [...this.state.toWatch, ...this.baseState.movies],
+      movies: [...this.state.toWatch],
       watchedBtn: false,
       toWatchBtn: true
     });
 
+  }
+
+
+  switchToAll (e) {
+    let base = [...this.baseState.movies];
+    let watched = [...this.state.watched];
+    let toWatch = [...this.state.toWatch];
+    let all = watched.concat(toWatch).concat(base);
+
+    this.setState({
+      movies: all
+    });
   }
 //////////////////////////////////////////////////////////
 
@@ -194,6 +207,7 @@ class App extends React.Component {
             toWatchBtn={this.state.toWatchBtn}
             switchToWatched={this.switchToWatched}
             switchToUnwatched={this.switchToUnwatched}
+            switchToAll={this.switchToAll}
           />
           <div className="input-movies-form">
             <InputMovies
