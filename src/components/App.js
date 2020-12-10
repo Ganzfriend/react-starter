@@ -32,7 +32,8 @@ class App extends React.Component {
     this.clearDefaultMovieVal = this.clearDefaultMovieVal.bind(this);
     this.clearDefaultSearchVal = this.clearDefaultSearchVal.bind(this);
     this.onValueChange = this.onValueChange.bind(this);
-    this.switchWatchBtn = this.switchWatchBtn.bind(this);
+    this.switchToWatched = this.switchToWatched.bind(this);
+    this.switchToUnwatched = this.switchToUnwatched.bind(this);
   };
 
 /////////////// clear input forms //////////
@@ -143,23 +144,24 @@ class App extends React.Component {
 
 
 ////////// toggle between Watch and To Watch buttons /////
-  switchWatchBtn (e) {
-    // first, we'll change the view
-    // then we'll update state
-    // var val = e.target.value;
-    if (!this.state.watchedBtn) {
-      this.setState({
-        movies: [...this.state.watched],
-        watchedBtn: !this.state.watchedBtn,
-        toWatchBtn: !this.state.toWatchBtn
-      });
-    } else {
-      this.setState({
-        movies: [...this.state.addedMovies, ...this.baseState.movies],
-        watchedBtn: !this.state.watchedBtn,
-        toWatchBtn: !this.state.toWatchBtn
-      });
-    }
+  // this is still buggy
+  // watched and not-watched (addedMovies) arrays aren't
+  // updating and/or rendering properly
+  switchToWatched (e) {
+    this.setState({
+      movies: [...this.state.watched],
+      watchedBtn: true,
+      toWatchBtn: false
+    });
+  }
+
+  switchToUnwatched (e) {
+    this.setState({
+      movies: [...this.state.addedMovies, ...this.baseState.movies],
+      watchedBtn: false,
+      toWatchBtn: true
+    });
+
   }
 //////////////////////////////////////////////////////////
 
@@ -174,7 +176,8 @@ class App extends React.Component {
             watched={this.state.watched}
             watchedBtn={this.state.watchedBtn}
             toWatchBtn={this.state.toWatchBtn}
-            switchWatchBtn={this.switchWatchBtn}
+            switchToWatched={this.switchToWatched}
+            switchToUnwatched={this.switchToUnwatched}
           />
           <div className="input-movies-form">
             <InputMovies
