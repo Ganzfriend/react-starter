@@ -15,6 +15,7 @@ class App extends React.Component {
 
     this.addMovie = this.addMovie.bind(this);
     this.searchPage = this.searchPage.bind(this);
+    this.findMovies = this.findMovies.bind(this);
   };
 
 
@@ -23,11 +24,28 @@ class App extends React.Component {
     console.log('Movie has been added to list'))
   }
 
+  // searchPage is just allow the search form to be updated
   searchPage (e){
     // update state search value
     // on click of button, make changes to movielist
     this.setState({value: e.target.value});
     console.log('typed!');
+  }
+
+  // findMovies will take in the value at the time of click and
+  // change movie array in state according to what meets criteria
+  findMovies (e) {
+    var val = this.state.value;
+    var movies = this.state.movies;
+    var searchedMovies = [];
+
+    for (let i = 0; i < movies.length; i++) {
+      var movie = movies[i].title;
+      if (movie.indexOf(val) > -1) {
+        searchedMovies.push(movies[i]);
+      }
+    }
+    this.setState({movies: searchedMovies});
   }
 
 
@@ -44,11 +62,10 @@ class App extends React.Component {
         <div>
           <Search
             searchPage={this.searchPage}
+            findMovies={this.findMovies}
             value={this.state.value}
           />
         </div>
-
-
       </div>
   )}
 }

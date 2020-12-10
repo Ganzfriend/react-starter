@@ -17,9 +17,11 @@ class Search extends React.Component {
           type="text"
           className="search-bar"
           value={this.props.value}
-          onChange={(e) => this.props.searchPage(e)}/>
+          onChange={(e) => this.props.searchPage(e)}
+        />
         <button
-          onClick={() => console.log('button clicked!')}>
+          onClick={(e) => this.props.findMovies(e)}
+        >
           Go!
         </button>
       </div>
