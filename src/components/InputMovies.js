@@ -6,8 +6,13 @@ class InputMovies extends React.Component {
     super(props);
   }
 
-
-
+  render () {
+    return (
+      <div>
+        Here is where the form will go
+      </div>
+    );
+  }
 
 }
 

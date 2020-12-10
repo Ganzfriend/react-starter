@@ -29,10 +29,16 @@ body {
   background-color: lightgray;
 }
 
+.input-movies-form {
+  position: absolute;
+  top: 50%;
+  left: 30%;
+}
+
 .search-form {
   position: absolute;
   top: 60%;
-  left: 10%;
+  left: 30%;
 }
 
 .list-of-titles {

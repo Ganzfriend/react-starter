@@ -2,6 +2,7 @@ import React from 'react';
 import MovieList from './MovieList.js';
 import exampleMovieData from '../exampleMovieData.js';
 import Search from './Search.js';
+import InputMovies from './InputMovies.js';
 
 
 class App extends React.Component {
@@ -60,20 +61,19 @@ class App extends React.Component {
   }
 
 
-
   render (){
     return(
       <div>
-        <div>
-          <InputMovies
-            movies={this.state.movies}
-          />
-        </div>
         <div>
           <MovieList
             movies={this.state.movies}
             addMovie={this.addMovie}
           />
+          <div className="input-movies-form">
+            <InputMovies
+              movies={this.state.movies}
+            />
+          </div>
         </div>
         <div>
           <Search
