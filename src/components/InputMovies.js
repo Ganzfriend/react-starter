@@ -9,8 +9,15 @@ class InputMovies extends React.Component {
   render () {
     return (
       <div>
-        Here is where the form will go
+        <input
+        className="input-movie-bar"
+        type="text"
+        />
+        <button className="add-button">
+          Add
+        </button>
       </div>
+
     );
   }
 

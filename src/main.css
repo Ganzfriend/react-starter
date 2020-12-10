@@ -35,6 +35,17 @@ body {
   left: 13%;
 }
 
+.add-button {
+  margin-left: 10px;
+  border-radius: 4px;
+  padding: 5px 8px;
+  color: white;
+  background-color: green;
+}
+
+
+
+
 .search-form {
   position: absolute;
   top: 60%;
