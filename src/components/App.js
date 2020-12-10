@@ -14,7 +14,9 @@ class App extends React.Component {
       value: 'Search...',
       addMovieValue: 'Add movie title here',
       addedMovies: [],
-      watched: []
+      watched: [],
+      watchedBtn: true,
+      toWatchBtn: false,
     };
 
 
@@ -32,7 +34,7 @@ class App extends React.Component {
     this.onValueChange = this.onValueChange.bind(this);
   };
 
-
+/////////////// clear input forms //////////
   clearDefaultMovieVal (e) {
     this.setState({addMovieValue: ''});
   }
@@ -40,17 +42,21 @@ class App extends React.Component {
   clearDefaultSearchVal (e) {
     this.setState({value: ''});
   }
+////////////////////////////////////////////
 
+
+//////////////// add movie functions /////////////////
 
   handleNewMovie (e) {
     this.setState({addMovieValue: e.target.value});
   }
 
   addMovie (movie) {
-    if (this.state.addMovieValue === 'Add movie title here' || this.state.addMovieValue === '') {
+    var val = this.state.addMovieValue;
+    if (val === 'Add movie title here' || val === '') {
       this.setState({movies: this.state.addedMovies});
     } else {
-      var newMovie = {title: this.state.addMovieValue};
+      var newMovie = {title: val};
       this.setState({
         addedMovies: [newMovie, ...this.state.addedMovies],
         movies: [newMovie, ...this.state.addedMovies],
@@ -58,6 +64,9 @@ class App extends React.Component {
       })
     }
   }
+///////////////////////////////////////////////////////////
+
+/////////////// search bar functions ///////////////////////
 
   // searchPage grabs input value from search bar
   // updates value state according to search input
@@ -100,6 +109,10 @@ class App extends React.Component {
       });
     }
   }
+////////////////////////////////////////////////////////
+
+
+////////////// toggle watched property on each movie /////
 
   // if title of item is in watched array, remove it
   // otherwise, add it
@@ -115,8 +128,7 @@ class App extends React.Component {
       this.setState({watched: newWatched});
     }
   }
-
-
+///////////////////////////////////////////////////////////
 
 
 
@@ -128,6 +140,8 @@ class App extends React.Component {
             movies={this.state.movies}
             onValueChange={this.onValueChange}
             watched={this.state.watched}
+            watchedBtn={this.state.watchedBtn}
+            toWatchBtn={this.state.toWatchBtn}
           />
           <div className="input-movies-form">
             <InputMovies
