@@ -65,7 +65,12 @@ class App extends React.Component {
   searchPage (e){
     this.setState({value: e.target.value});
     if (!this.value) {
-      this.setState({movies: this.baseState.movies});
+      var moviesAdded = this.state.addedMovies.length > 0;
+      if (moviesAdded) {
+        this.setState({movies: [...this.state.addedMovies]});
+      } else {
+        this.setState({movies: this.baseState.movies});
+      }
     }
   }
 
