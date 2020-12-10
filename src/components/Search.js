@@ -20,6 +20,7 @@ class Search extends React.Component {
           onChange={(e) => this.props.searchPage(e)}
         />
         <button
+          className="search-button"
           onClick={(e) => this.props.findMovies(e)}
         >
           Go!

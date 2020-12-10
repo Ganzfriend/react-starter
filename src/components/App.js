@@ -11,8 +11,9 @@ class App extends React.Component {
 
     this.state = {
       movies: props.exampleMovies,
-      value: 'Search...'
-      addedMovies: [];
+      value: 'Search...',
+      addMovieValue: 'Add movie title here',
+      addedMovies: []
     };
 
 
@@ -20,16 +21,25 @@ class App extends React.Component {
       movies: props.exampleMovies
     }
 
-    this.addMovie = this.addMovie.bind(this);
     this.searchPage = this.searchPage.bind(this);
     this.findMovies = this.findMovies.bind(this);
+    this.handleNewMovie = this.handleNewMovie.bind(this);
+    this.addMovie = this.addMovie.bind(this);
   };
 
-
-  addMovie (movie){
-    this.setState({movies: [...this.movies, movie]}, () =>
-    console.log('Movie has been added to list'))
+  handleNewMovie (e) {
+    this.setState({addMovieValue: e.target.value});
   }
+
+  addMovie (movie) {
+    var newMovie = {title: this.state.addMovieValue};
+    console.log(newMovie);
+    this.setState({addedMovies: [...this.state.addedMovies, newMovie]})
+
+    this.setState({movies: this.state.addedMovies});
+  }
+
+
 
   // searchPage just allows the search form to be updated
   searchPage (e){
@@ -72,10 +82,14 @@ class App extends React.Component {
           <MovieList
             movies={this.state.movies}
             addMovie={this.addMovie}
+            addMovieValue={this.addMovieValue}
           />
           <div className="input-movies-form">
             <InputMovies
               movies={this.state.movies}
+              handleNewMovie={this.handleNewMovie}
+              addMovie={this.addMovie}
+              addMovieValue={this.state.addMovieValue}
             />
           </div>
         </div>
