@@ -80,7 +80,7 @@ class App extends React.Component {
   // reverts to base state whenever search form is cleared
   searchPage (e){
     this.setState({value: e.target.value});
-    if (!this.value) {
+    if (!this.state.value) {
       var moviesAdded = this.state.toWatch.length > 0;
       if (moviesAdded) {
         this.setState({movies: [...this.state.toWatch]});
@@ -180,7 +180,6 @@ class App extends React.Component {
     });
 
   }
-
 
   switchToAll (e) {
     let base = [...this.baseState.movies];

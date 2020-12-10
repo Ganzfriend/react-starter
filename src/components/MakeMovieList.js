@@ -19,8 +19,9 @@ const MakeMovieList = ({movies, onValueChange, watched}) => {
       {movies.map((movie, i) => (
         <div className="movie-box" key={i}>
           {movie.title}
-          <label>
+          <label className="watched-label">
             <input
+              className="check-watched"
               type="checkbox"
               id={i}
               value={movie.title}

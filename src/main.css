@@ -42,6 +42,13 @@ body {
   left: 13%;
 }
 
+.watched-label {
+  float: right;
+  font-size: 12px;
+}
+
+
+
 .add-button {
   margin-left: 10px;
   border-radius: 4px;
