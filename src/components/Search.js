@@ -17,6 +17,7 @@ class Search extends React.Component {
           type="text"
           className="search-bar"
           value={this.props.value}
+          onClick={(e) => this.props.clearDefaultSearchVal(e)}
           onChange={(e) => this.props.searchPage(e)}
         />
         <button

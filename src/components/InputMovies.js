@@ -13,11 +13,12 @@ class InputMovies extends React.Component {
           className="input-movie-bar"
           type="text"
           value={this.props.addMovieValue}
+          onClick={(e) => this.props.clearDefaultMovieVal(e)}
           onChange={(e) => this.props.handleNewMovie(e)}
         />
         <button
           className="add-button"
-          onClick={(e) => this.props.addMovie(e)}
+          onClick={(e) => this.props.addMovie(this.props.addMovieValue)}
         >
           Add
         </button>

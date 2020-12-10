@@ -18,33 +18,55 @@ class App extends React.Component {
 
 
     this.baseState = {
-      movies: props.exampleMovies
+      movies: props.exampleMovies,
+      addedMovies: []
     }
 
     this.searchPage = this.searchPage.bind(this);
     this.findMovies = this.findMovies.bind(this);
     this.handleNewMovie = this.handleNewMovie.bind(this);
     this.addMovie = this.addMovie.bind(this);
+    this.clearDefaultMovieVal = this.clearDefaultMovieVal.bind(this);
+    this.clearDefaultSearchVal = this.clearDefaultSearchVal.bind(this);
   };
+
+
+  clearDefaultMovieVal (e) {
+    console.log('clicked!');
+    this.setState({addMovieValue: ''});
+  }
+
+  clearDefaultSearchVal (e) {
+    console.log('clicked!');
+    this.setState({value: ''});
+  }
+
+
 
   handleNewMovie (e) {
     this.setState({addMovieValue: e.target.value});
   }
 
   addMovie (movie) {
-    var newMovie = {title: this.state.addMovieValue};
-    console.log(newMovie);
-    this.setState({addedMovies: [...this.state.addedMovies, newMovie]})
+    if (this.state.addMovieValue === 'Add movie title here') {
+      this.setState({movies: this.state.addedMovies});
+    } else {
+      var newMovie = {title: this.state.addMovieValue};
+      this.setState({addedMovies: [newMovie, ...this.state.addedMovies]})
+      console.log(this.state.addedMovies);
 
-    this.setState({movies: this.state.addedMovies});
+      this.setState({movies: this.state.addedMovies});
+      this.setState({addMovieValue: 'Add movie title here'});
+    }
   }
 
 
 
-  // searchPage just allows the search form to be updated
+
+  // searchPage grabs input value from search bar
+  // updates value state according to search input
+  // reverts to base state whenever search form is cleared
   searchPage (e){
-    // update value state according to search input
-    // reverts to base state whenever search form is cleared
     this.setState({value: e.target.value});
     if (!this.value) {
       this.setState({movies: this.baseState.movies});
@@ -64,14 +86,13 @@ class App extends React.Component {
         searchedMovies.push(movies[i]);
       }
     }
-    // if no movie is found in search, alert
+    // if no movie is found in search, apology message appears
     if (searchedMovies.length > 0) {
       this.setState({movies: searchedMovies});
     } else {
       this.setState({movies: [{title: 'No movie by that name found. Sorry!'}]});
-
-      // alert('No movie by that name found');
     }
+    this.setState({value: 'Search...'});
   }
 
 
@@ -90,6 +111,7 @@ class App extends React.Component {
               handleNewMovie={this.handleNewMovie}
               addMovie={this.addMovie}
               addMovieValue={this.state.addMovieValue}
+              clearDefaultMovieVal={this.clearDefaultMovieVal}
             />
           </div>
         </div>
@@ -98,6 +120,7 @@ class App extends React.Component {
             searchPage={this.searchPage}
             findMovies={this.findMovies}
             value={this.state.value}
+            clearDefaultSearchVal={this.clearDefaultSearchVal}
           />
         </div>
       </div>
