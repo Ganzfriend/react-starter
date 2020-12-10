@@ -28,15 +28,14 @@ class App extends React.Component {
     console.log('Movie has been added to list'))
   }
 
-  // searchPage is just allow the search form to be updated
+  // searchPage just allows the search form to be updated
   searchPage (e){
-    // update state search value
-    // on click of button, make changes to movielist
+    // update value state according to search input
+    // reverts to base state whenever search form is cleared
     this.setState({value: e.target.value});
     if (!this.value) {
       this.setState({movies: this.baseState.movies});
     }
-    console.log('typed!');
   }
 
   // findMovies will take in the value at the time of click and
@@ -52,7 +51,7 @@ class App extends React.Component {
         searchedMovies.push(movies[i]);
       }
     }
-
+    // if no movie is found in search, alert
     if (searchedMovies.length > 0) {
       this.setState({movies: searchedMovies});
     } else {
@@ -60,14 +59,16 @@ class App extends React.Component {
     }
   }
 
-  // need to revert to base state whenever search form is cleared
-
-
 
 
   render (){
     return(
       <div>
+        <div>
+          <InputMovies
+            movies={this.state.movies}
+          />
+        </div>
         <div>
           <MovieList
             movies={this.state.movies}
@@ -86,6 +87,3 @@ class App extends React.Component {
 }
 
 export default App;
-
-
-// import from './main.css';
