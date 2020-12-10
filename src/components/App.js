@@ -32,6 +32,7 @@ class App extends React.Component {
     this.clearDefaultMovieVal = this.clearDefaultMovieVal.bind(this);
     this.clearDefaultSearchVal = this.clearDefaultSearchVal.bind(this);
     this.onValueChange = this.onValueChange.bind(this);
+    this.switchWatchBtn = this.switchWatchBtn.bind(this);
   };
 
 /////////////// clear input forms //////////
@@ -115,21 +116,52 @@ class App extends React.Component {
 ////////////// toggle watched property on each movie /////
 
   // if title of item is in watched array, remove it
-  // otherwise, add it
+  // otherwise, add it, and remove it from addedMovies
   onValueChange (e) {
     var v = e.target.value;
     var i = this.state.watched.indexOf(v);
 
     if (i < 0) {
-      this.setState({watched: [...this.state.watched, v]});
+      var newAddedMovies = [...this.state.addedMovies];
+      newAddedMovies.splice(i, 1);
+
+      this.setState({
+        watched: [...this.state.watched, v],
+        addedMovies: newAddedMovies
+      });
     } else {
       var newWatched = [...this.state.watched];
       newWatched.splice(i, 1);
-      this.setState({watched: newWatched});
+
+      this.setState({
+        watched: newWatched,
+        addedMovies: [...this.state.addedMovies, v]
+      });
     }
   }
 ///////////////////////////////////////////////////////////
 
+
+////////// toggle between Watch and To Watch buttons /////
+  switchWatchBtn (e) {
+    // first, we'll change the view
+    // then we'll update state
+    // var val = e.target.value;
+    if (!this.state.watchedBtn) {
+      this.setState({
+        movies: [...this.state.watched],
+        watchedBtn: !this.state.watchedBtn,
+        toWatchBtn: !this.state.toWatchBtn
+      });
+    } else {
+      this.setState({
+        movies: [...this.state.addedMovies, ...this.baseState.movies],
+        watchedBtn: !this.state.watchedBtn,
+        toWatchBtn: !this.state.toWatchBtn
+      });
+    }
+  }
+//////////////////////////////////////////////////////////
 
 
   render (){
@@ -142,6 +174,7 @@ class App extends React.Component {
             watched={this.state.watched}
             watchedBtn={this.state.watchedBtn}
             toWatchBtn={this.state.toWatchBtn}
+            switchWatchBtn={this.switchWatchBtn}
           />
           <div className="input-movies-form">
             <InputMovies

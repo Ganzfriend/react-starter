@@ -3,7 +3,7 @@ import MakeMovieList from './MakeMovieList.js';
 import Search from './Search.js';
 import WatchedBtns from './WatchedBtns.js';
 
-var MovieList = ({movies, addMovie, onValueChange, watched, watchedBtn, toWatchBtn}) => {
+var MovieList = ({movies, addMovie, onValueChange, watched, watchedBtn, toWatchBtn, switchWatchBtn}) => {
   return (
     <div className="container">
       <div className="title-bar">
@@ -15,6 +15,7 @@ var MovieList = ({movies, addMovie, onValueChange, watched, watchedBtn, toWatchB
             watched={watched}
             watchedBtn={watchedBtn}
             toWatchBtn={toWatchBtn}
+            switchWatchBtn={switchWatchBtn}
           />
         </div>
         <MakeMovieList
