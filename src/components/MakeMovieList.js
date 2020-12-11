@@ -17,7 +17,7 @@ const MakeMovieList = ({movies, onValueChange, watched}) => {
   return (
     <div>
       {movies.map((movie, i) => (
-        <div className="movie-box" key={i}>
+        <div className="movie-box" key={movie.title}>
           {movie.title}
           <label className="watched-label">
             <input
@@ -26,6 +26,8 @@ const MakeMovieList = ({movies, onValueChange, watched}) => {
               id={i}
               value={movie.title}
               // watched={watched}
+              // checked={true}
+              // indeterminate="true"
               onChange={(e) => onValueChange(e)}
             />
             Watched

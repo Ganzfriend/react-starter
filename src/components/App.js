@@ -10,15 +10,13 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      movies: props.exampleMovies,
-      // movies: [],
+      movies: [],
       value: 'Search...',
       addMovieValue: 'Add movie title here',
       toWatch: [],
       watched: [],
       watchedBtn: true,
       toWatchBtn: false,
-
     };
 
 
@@ -26,7 +24,7 @@ class App extends React.Component {
       movies: props.exampleMovies,
       // movies: [],
       toWatch: []
-    }
+    };
 
     this.searchPage = this.searchPage.bind(this);
     this.findMovies = this.findMovies.bind(this);
@@ -85,7 +83,7 @@ class App extends React.Component {
       if (moviesAdded) {
         this.setState({movies: [...this.state.toWatch]});
       } else {
-        this.setState({movies: this.baseState.movies});
+        this.setState({movies: [...this.baseState.movies]});
       }
     }
   }
@@ -121,11 +119,25 @@ class App extends React.Component {
 
 ////////////// toggle watched property on each movie /////
 
+  // handleCheckbox (e) {
+
+
+  // }
+
+
+
+
+
   // if title of item is in watched array, remove it
   // otherwise, add it, and remove it from toWatch
   onValueChange (e) {
+    console.log(e.target.id);
+    console.log(e.target.value);
+
     var v = e.target.value;
     var watched = this.state.watched;
+
+    // movie.checked = !movie.checked;
 
     for (let i = 0; i < watched.length; i++) {
       let obj = watched[i];
@@ -182,13 +194,8 @@ class App extends React.Component {
   }
 
   switchToAll (e) {
-    let base = [...this.baseState.movies];
-    let watched = [...this.state.watched];
-    let toWatch = [...this.state.toWatch];
-    let all = watched.concat(toWatch).concat(base);
-
     this.setState({
-      movies: all
+      movies: [...this.state.watched, ...this.state.toWatch, ...this.baseState.movies]
     });
   }
 //////////////////////////////////////////////////////////
