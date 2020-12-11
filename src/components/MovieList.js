@@ -3,7 +3,7 @@ import MakeMovieList from './MakeMovieList.js';
 import Search from './Search.js';
 import WatchedBtns from './WatchedBtns.js';
 
-const MovieList = ({movies, addMovie, onValueChange, watched, watchedBtn, toWatchBtn, switchToWatched, switchToUnwatched, switchToAll}) => {
+const MovieList = ({movies, addMovie, switchToWatched, switchToUnwatched, switchToAll, handleCheckbox}) => {
   return (
     <div className="container">
       <div className="title-bar">
@@ -12,9 +12,6 @@ const MovieList = ({movies, addMovie, onValueChange, watched, watchedBtn, toWatc
       <div className="list-of-titles">
         <div>
           <WatchedBtns
-            watched={watched}
-            watchedBtn={watchedBtn}
-            toWatchBtn={toWatchBtn}
             switchToWatched={switchToWatched}
             switchToUnwatched={switchToUnwatched}
             switchToAll={switchToAll}
@@ -22,8 +19,7 @@ const MovieList = ({movies, addMovie, onValueChange, watched, watchedBtn, toWatc
         </div>
         <MakeMovieList
           movies={movies}
-          onValueChange={onValueChange}
-          watched={watched}
+          handleCheckbox={handleCheckbox}
         />
       </div>
     </div>

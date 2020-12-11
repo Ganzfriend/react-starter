@@ -1,7 +1,7 @@
 import React from 'react';
 import MovieList from './MovieList.js';
 
-const WatchedBtns = ({watched, watchedBtn, toWatchBtn, switchToWatched, switchToUnwatched, switchToAll}) => {
+const WatchedBtns = ({switchToWatched, switchToUnwatched, switchToAll}) => {
   return (
     <div>
       <button
@@ -13,7 +13,6 @@ const WatchedBtns = ({watched, watchedBtn, toWatchBtn, switchToWatched, switchTo
 
       <button
         className="watched-btn tab"
-        value={watchedBtn}
         onClick={(e) => switchToWatched(e)}
       >
         Watched
@@ -21,7 +20,6 @@ const WatchedBtns = ({watched, watchedBtn, toWatchBtn, switchToWatched, switchTo
 
       <button
         className="to-watch-btn tab"
-        value={toWatchBtn}
         onClick={(e) => switchToUnwatched(e)}
       >
         To Watch

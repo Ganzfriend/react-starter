@@ -15,15 +15,11 @@ class App extends React.Component {
       addMovieValue: 'Add movie title here',
       toWatch: [],
       watched: [],
-      watchedBtn: true,
-      toWatchBtn: false,
     };
 
 
     this.baseState = {
       movies: props.exampleMovies,
-      // movies: [],
-      toWatch: []
     };
 
     this.searchPage = this.searchPage.bind(this);
@@ -32,10 +28,10 @@ class App extends React.Component {
     this.addMovie = this.addMovie.bind(this);
     this.clearDefaultMovieVal = this.clearDefaultMovieVal.bind(this);
     this.clearDefaultSearchVal = this.clearDefaultSearchVal.bind(this);
-    this.onValueChange = this.onValueChange.bind(this);
     this.switchToWatched = this.switchToWatched.bind(this);
     this.switchToUnwatched = this.switchToUnwatched.bind(this);
     this.switchToAll = this.switchToAll.bind(this);
+    this.handleCheckbox = this.handleCheckbox.bind(this);
   };
 
 /////////////// clear input forms //////////
@@ -60,7 +56,7 @@ class App extends React.Component {
     if (val === 'Add movie title here' || val === '') {
       this.setState({movies: [...this.state.toWatch]});
     } else {
-      var newMovie = {title: val};
+      var newMovie = {title: val, checked: false};
       this.setState({
         toWatch: [newMovie, ...this.state.toWatch],
         movies: [newMovie, ...this.state.toWatch],
@@ -119,57 +115,15 @@ class App extends React.Component {
 
 ////////////// toggle watched property on each movie /////
 
-  // handleCheckbox (e) {
+  handleCheckbox (e) {
+    var index = e.target.id;
+    var moviesArr = [...this.state.movies];
+    moviesArr[index].checked = !moviesArr[index].checked;
 
-
-  // }
-
-
-
-
-
-  // if title of item is in watched array, remove it
-  // otherwise, add it, and remove it from toWatch
-  onValueChange (e) {
-    console.log(e.target.id);
-    console.log(e.target.value);
-
-    var v = e.target.value;
-    var watched = this.state.watched;
-
-    // movie.checked = !movie.checked;
-
-    for (let i = 0; i < watched.length; i++) {
-      let obj = watched[i];
-
-      if (obj.title === v) {
-        var newWatched = [...this.state.watched];
-        newWatched.splice(i, 1);
-        this.setState({
-          watched: newWatched,
-          toWatch: [...this.state.toWatch, {title: v}]
-        });
-        return;
-      }
-    }
-    // otherwise, we know title was not found in watched
-    // so, we'll remove it from toWatch and add to watched
-    var toWatch =  [...this.state.toWatch];
-
-    for (let j = 0; j < toWatch.length; j++) {
-      let obj = toWatch[j];
-      if (obj.title === v) {
-        var newToWatch = [...this.state.toWatch];
-        newToWatch.splice(j, 1);
-        this.setState({
-          watched: [...this.state.watched, {title: v}],
-          toWatch: newToWatch
-        });
-        return;
-      }
-    }
+    this.setState({movies: moviesArr}, () => console.log(this.state.movies)
+    );
   }
-///////////////////////////////////////////////////////////
+
 
 
 ////////// toggle between Watch and To Watch buttons /////
@@ -179,16 +133,12 @@ class App extends React.Component {
   switchToWatched (e) {
     this.setState({
       movies: [...this.state.watched],
-      watchedBtn: true,
-      toWatchBtn: false
     });
   }
 
   switchToUnwatched (e) {
     this.setState({
       movies: [...this.state.toWatch],
-      watchedBtn: false,
-      toWatchBtn: true
     });
 
   }
@@ -207,13 +157,10 @@ class App extends React.Component {
         <div>
           <MovieList
             movies={this.state.movies}
-            onValueChange={this.onValueChange}
-            watched={this.state.watched}
-            watchedBtn={this.state.watchedBtn}
-            toWatchBtn={this.state.toWatchBtn}
             switchToWatched={this.switchToWatched}
             switchToUnwatched={this.switchToUnwatched}
             switchToAll={this.switchToAll}
+            handleCheckbox={this.handleCheckbox}
           />
           <div className="input-movies-form">
             <InputMovies

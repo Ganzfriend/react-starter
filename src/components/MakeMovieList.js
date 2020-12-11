@@ -1,7 +1,7 @@
 import React from 'react';
 import MovieList from './MovieList.js';
 
-const MakeMovieList = ({movies, onValueChange, watched}) => {
+const MakeMovieList = ({movies, handleCheckbox}) => {
   if (movies === 'No movie by that name found. Sorry!') {
     return (
       <div className="sorry-msg">
@@ -25,10 +25,8 @@ const MakeMovieList = ({movies, onValueChange, watched}) => {
               type="checkbox"
               id={i}
               value={movie.title}
-              // watched={watched}
-              // checked={true}
-              // indeterminate="true"
-              onChange={(e) => onValueChange(e)}
+              checked={movie.checked}
+              onChange={(e) => handleCheckbox(e)}
             />
             Watched
           </label>
