@@ -11,10 +11,9 @@ class App extends React.Component {
 
     this.state = {
       movies: [],
-      value: 'Search...',
       addMovieValue: 'Add movie title here',
-      toWatch: [],
-      watched: [],
+      filter: 'all',
+      query: ''
     };
 
 
@@ -26,23 +25,12 @@ class App extends React.Component {
     this.findMovies = this.findMovies.bind(this);
     this.handleNewMovie = this.handleNewMovie.bind(this);
     this.addMovie = this.addMovie.bind(this);
-    this.clearDefaultMovieVal = this.clearDefaultMovieVal.bind(this);
-    this.clearDefaultSearchVal = this.clearDefaultSearchVal.bind(this);
     this.switchToWatched = this.switchToWatched.bind(this);
     this.switchToUnwatched = this.switchToUnwatched.bind(this);
     this.switchToAll = this.switchToAll.bind(this);
     this.handleCheckbox = this.handleCheckbox.bind(this);
+    this.filterMovies = this.filterMovies.bind(this);
   };
-
-/////////////// clear input forms //////////
-  clearDefaultMovieVal (e) {
-    this.setState({addMovieValue: ''});
-  }
-
-  clearDefaultSearchVal (e) {
-    this.setState({value: ''});
-  }
-////////////////////////////////////////////
 
 
 //////////////// add movie functions /////////////////
@@ -54,12 +42,11 @@ class App extends React.Component {
   addMovie (movie) {
     var val = this.state.addMovieValue;
     if (val === 'Add movie title here' || val === '') {
-      this.setState({movies: [...this.state.toWatch]});
+      return;
     } else {
       var newMovie = {title: val, checked: false};
       this.setState({
-        toWatch: [newMovie, ...this.state.toWatch],
-        movies: [newMovie, ...this.state.toWatch],
+        movies: [newMovie, ...this.state.movies],
         addMovieValue: 'Add movie title here'
       })
     }
@@ -73,15 +60,7 @@ class App extends React.Component {
   // updates value state according to search input
   // reverts to base state whenever search form is cleared
   searchPage (e){
-    this.setState({value: e.target.value});
-    if (!this.state.value) {
-      var moviesAdded = this.state.toWatch.length > 0;
-      if (moviesAdded) {
-        this.setState({movies: [...this.state.toWatch]});
-      } else {
-        this.setState({movies: [...this.baseState.movies]});
-      }
-    }
+    this.setState({query: e.target.value});
   }
 
   // findMovies will take in the value at the time of click and
@@ -132,15 +111,14 @@ class App extends React.Component {
   // updating and/or rendering properly
   switchToWatched (e) {
     this.setState({
-      movies: [...this.state.watched],
+      filter: 'watched',
     });
   }
 
   switchToUnwatched (e) {
     this.setState({
-      movies: [...this.state.toWatch],
+      filter: 'unwatched',
     });
-
   }
 
   switchToAll (e) {
@@ -150,13 +128,30 @@ class App extends React.Component {
   }
 //////////////////////////////////////////////////////////
 
+  filterMovies () {
+    switch (this.state.filter) {
+      case 'all': return this.state.movies;
+      case 'watched': {
+        return this.state.movies.filter(movie => {
+          return movie.checked;
+        })
+      }
+      case 'unwatched': {
+        return this.state.movies.filter(movie => {
+          return !movie.checked;
+        })
+      }
+    }
+  }
+
+/////////////////////////////////////////////////////////
 
   render (){
     return(
       <div>
         <div>
           <MovieList
-            movies={this.state.movies}
+            movies={this.filterMovies()}
             switchToWatched={this.switchToWatched}
             switchToUnwatched={this.switchToUnwatched}
             switchToAll={this.switchToAll}

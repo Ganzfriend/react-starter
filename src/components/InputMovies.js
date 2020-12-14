@@ -12,8 +12,8 @@ class InputMovies extends React.Component {
         <input
           className="input-movie-bar"
           type="text"
+          placeholder="Add movie title here"
           value={this.props.addMovieValue}
-          onClick={(e) => this.props.clearDefaultMovieVal(e)}
           onChange={(e) => this.props.handleNewMovie(e)}
         />
         <button
