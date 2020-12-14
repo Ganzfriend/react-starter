@@ -66,7 +66,7 @@ class App extends React.Component {
   // findMovies will take in the value at the time of click and
   // change movie array in state according to what meets criteria
   findMovies (e) {
-    var val = this.state.value;
+    var val = this.state.query;
     var movies = this.state.movies;
     var searchedMovies = [];
 
